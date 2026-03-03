@@ -1,68 +1,123 @@
-import { Routes, Route, Link } from "react-router-dom";
+import "./index.css";
+import { Navigate } from "react-router-dom";
+import { Link, Route, Routes } from "react-router-dom";
+import AddCar from "./components/AddCar";
+import Home from "./components/Home";
+import CarDetail from "./components/CarDetail";
+import EditCar from "./components/EditCar";
+import Login from "./components/Login";
+import ProtectedRoute from "./components/ProtectedRoute";
+import { signOut } from "firebase/auth";
+import { auth } from "./firebase";
+import { onAuthStateChanged, type User } from "firebase/auth";
 import { useEffect, useState } from "react";
-import TeacherRoute from "./component/TeacherRoute";
-
-import Teacher from "./pages/Teacher";
-import User from "./pages/User";
-import SignIn from "./pages/SignIn";
-import Signup from "./pages/Signup";
-import Profile from "./pages/Profile";
+import Register from "./components/Register";
 
 const App = () => {
-  const [role, setRole] = useState(null);
+  const [user, setUser] = useState<User | null>(null);
 
-  useEffect(() => setRole(localStorage.getItem("role")), []);
-
-  const logout = () => {
-    localStorage.removeItem("currentUser");
-    localStorage.removeItem("role");
-    setRole(null);
-  };
-
+  useEffect(() => {
+    const unsub = onAuthStateChanged(auth, (u) => {
+      setUser(u);
+    });
+    return () => unsub();
+  }, []);
   return (
-    <div className="min-vh-100 text-light bg-dark">
-      <nav className="body d-flex navbar-expand-lg navbar-dark bg-black shadow-sm p-4">
-        <Link className="navbar-brand fw-bold fs-3" to="/">
-          🎓 EduPlatform
-        </Link>
+    <div className="app">
+      <nav className="navbar p-2">
+        <div className="nav-left">
+          <Link to={"/home"} className="logo-circle">
+            <img
+              src="https://static.tildacdn.one/tild3062-3963-4362-b764-346531383365/photo_2023-09-28_19-.png"
+              alt="logo"
+            />
+          </Link>
 
-        <div className="ms-auto d-flex gap-2 align-items-center">
-          {role === "teacher" && (
-            <Link className="btn btn-teacher" to="/teacher">
-              Teacher Panel
+          <div className="brand">
+            <Link
+              to={"/home"}
+              className="fs-6 text-black link-offset-2 link-underline link-underline-opacity-0"
+            >
+              GONZO MOTORS
             </Link>
-          )}
+            <p>+998 90 081 47 78</p>
+          </div>
+        </div>
 
-          {!role && (
-            <Link className="btn btn-modern" to="/sign-in">
-              Sign In
-            </Link>
-          )}
+        <div className="nav-center">
+          <Link to="/home">
+            <button>КАТАЛОГ</button>
+          </Link>
+          <button>О НАС</button>
+          {!user && (
+            <>
+              <Link to="/login">
+                <button>ВОЙТИ</button>
+              </Link>
 
-          {role && (
-            <button onClick={logout} className="btn btn-logout">
-              Logout
-            </button>
+              <Link to="/register">
+                <button>РЕГИСТРАЦИЯ</button>
+              </Link>
+            </>
           )}
+          <button>НОВОСТИ</button>
+          <button>КОНТАКТЫ</button>
+          <button>ДОСТАВКА ТОВАРОВ</button>
+
+          {user && (
+            <>
+                <Link to="/add-car">
+                  <button>ДОБАВИТЬ</button>
+                </Link>
+
+              <button onClick={() => signOut(auth)}>ВЫЙТИ</button>
+            </>
+          )} 
+        </div>
+
+        <div className="nav-right">
+          <div className="icon-btn">
+            <img
+              src="https://static.tildacdn.one/tild6230-6563-4264-a137-313663336332/magnifying-glass-sol.svg"
+              alt="search"
+            />
+          </div>
+
+          <div className="icon-btn">
+            <img
+              src="https://static.tildacdn.one/tild3461-6436-4862-a464-623539356631/Frame.svg"
+              alt="menu"
+            />
+          </div>
         </div>
       </nav>
 
       <Routes>
-        <Route path="/sign-in" element={<SignIn />} />
-        <Route path="/sign-up" element={<Signup />} />
+        <Route path="/" element={<Navigate to="/home" />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/add-car" element={<AddCar />} />
+        <Route path="/car/:id" element={<CarDetail />} />
+        <Route path="/edit/:id" element={<EditCar />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<Login />} />
 
         <Route
-          path="/teacher"
+          path="/add-car"
           element={
-            <TeacherRoute>
-              <Teacher />
-            </TeacherRoute>
+            <ProtectedRoute>
+              <AddCar />
+            </ProtectedRoute>
           }
         />
 
-        <Route path="/user" element={<User />} />
-
-        <Route path="/profile" element={<Profile />} />
+        <Route
+          path="/edit/:id"
+          element={
+            <ProtectedRoute>
+              <EditCar />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
     </div>
   );
