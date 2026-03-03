@@ -172,7 +172,7 @@ const Home = () => {
               <h5>
                 {car.name} {car.model}
               </h5>
-              <p className="text-muted">{car.price} so'm</p>
+              <p className="text-muted">{car.price} so'm/kuniga</p>
               {car.rented && <div className="rented-badge">RENTED</div>}
 
               {(auth.currentUser?.uid === car.ownerId ||

@@ -89,7 +89,7 @@ const CarDetail = () => {
               )}
             </div>
 
-            <div className="thumbs">
+            <div className="thumbs d-flex flex-wrap">
               {car.images.map((img, index) => (
                 <img
                   key={index}
@@ -105,7 +105,7 @@ const CarDetail = () => {
 
       <div className="detail-right">
         <h2>{car.name} {car.model}</h2>
-        <h3 className="price">{car.price} so'm</h3>
+        <h3 className="price">{car.price} so'm/kuniga</h3>
 
         <div className="spec"><span>Speed:</span> {car.speed}</div>
         <div className="spec"><span>Color:</span> {car.color}</div>
