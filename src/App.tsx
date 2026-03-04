@@ -12,6 +12,7 @@ import { auth } from "./firebase";
 import { onAuthStateChanged, type User } from "firebase/auth";
 import { useEffect, useState } from "react";
 import Register from "./components/Register";
+import Dostavka from "./components/Dostavka";
 
 const App = () => {
   const [user, setUser] = useState<User | null>(null);
@@ -62,7 +63,7 @@ const App = () => {
           )}
           <button>НОВОСТИ</button>
           <button>КОНТАКТЫ</button>
-          <button>ДОСТАВКА ТОВАРОВ</button>
+          <Link to={"dostavka"}><button>ДОСТАВКА ТОВАРОВ</button></Link>
 
           {user && (
             <>
@@ -100,6 +101,7 @@ const App = () => {
         <Route path="/edit/:id" element={<EditCar />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/dostavka" element={<Dostavka />} />
 
         <Route
           path="/add-car"

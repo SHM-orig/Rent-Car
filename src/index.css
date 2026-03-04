@@ -11,12 +11,11 @@ body {
   background: #000000;
 }
 
+
 /* NAVBAR CONTAINER */
 .navbar {
   position: sticky;
   top: 0;
-  width: 100%;
-  z-index: 999;
 }
 
 /* LEFT BLOCK */
@@ -695,11 +694,14 @@ body {
   }
 
   .nav-left,
-  .nav-center,
-  .nav-right {
+  .nav-center{
     width: 100%;
     border-radius: 12px;
     padding: 10px;
+  }
+
+  .nav-right {
+    display: none;
   }
 
   .nav-center {
@@ -807,4 +809,13 @@ body {
     width: 90%;
   }
 
+   .nav-center button:nth-child(2),  /* О НАС */
+  .nav-center button:nth-child(4),  /* НОВОСТИ */
+  .nav-center button:nth-child(5),  /* КОНТАКТЫ */
+  .nav-center button:nth-child(6) { /* ДОСТАВКА */
+    display: none;
+  }
+
 }
+
+

@@ -112,36 +112,12 @@ const Home = () => {
       <div className="center-back">
         {" "}
         <h3>
-          <p>Купить электромобили и автомобили по</p>
-          <p>низким ценам прямиком из Китая вы</p>
-          <p>можете у нас</p>
+          <p>Арендовать автомобили и суперкары</p>
+          <p>вы можете у нас</p>
         </h3>{" "}
       </div>
 
-      <div className="filter-bar">
-        <div className="filter-left">
-          <button className="filter-btn">БРЕНД</button>
-          <button className="filter-btn">ЦЕНА</button>
-          <button className="filter-btn wide">ТИП ДВИГАТЕЛЯ</button>
-          <button className="filter-btn">КУЗОВ</button>
-        </div>
-
-        <div className="filter-right">
-          <div className="search-box">
-            <input type="text" placeholder="Поиск" />
-            <img
-              src="https://static.tildacdn.one/tild6230-6563-4264-a137-313663336332/magnifying-glass-sol.svg"
-              alt="search"
-            />
-          </div>
-
-          <select className="sort-select">
-            <option>Порядок: по умолчанию</option>
-            <option>Сначала дешевле</option>
-            <option>Сначала дороже</option>
-          </select>
-        </div>
-      </div>
+      
 
       <div className="catalog-wrapper">
         {cars.map((car) => (
