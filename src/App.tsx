@@ -25,7 +25,7 @@ const App = () => {
   }, []);
   return (
     <div className="app">
-      <nav className="navbar sticky-top p-2">
+      <nav className="navbar text-light sticky-top p-2">
         <div className="nav-left">
           <Link to={"/home"} className="logo-circle">
             <img
@@ -37,7 +37,7 @@ const App = () => {
           <div className="brand">
             <Link
               to={"/home"}
-              className="fs-6 text-black link-offset-2 link-underline link-underline-opacity-0"
+              className="fs-6 text-light link-offset-2 link-underline link-underline-opacity-0"
             >
               GONZO MOTORS
             </Link>

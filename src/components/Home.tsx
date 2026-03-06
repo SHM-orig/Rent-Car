@@ -74,7 +74,7 @@ const Home = () => {
 
   return (
     <div>
-      <div className="hero">
+      <div className="hero text-light">
         {slides.map((slide, index) => (
           <div
             key={slide.id}
@@ -84,7 +84,7 @@ const Home = () => {
             <div className="hero-content">
               <h1>{slide.title}</h1>
               <p>{slide.desc}</p>
-              <button className="hero-btn">ПОДРОБНЕЕ</button>
+              <button className="hero-btn text-light">ПОДРОБНЕЕ</button>
             </div>
           </div>
         ))}
@@ -109,49 +109,47 @@ const Home = () => {
         </div>
       </div>
 
-      <div className="center-back">
-        {" "}
-        <h3>
-          <p>Арендовать автомобили и суперкары</p>
-          <p>вы можете у нас</p>
-        </h3>{" "}
-      </div>
+      <div className="catalog-section">
 
-      
+  <div className="catalog-header text-light">
+    <h2>Премиум автомобили</h2>
+    <p>Выбери машину своей мечты</p>
+  </div>
 
-      <div className="catalog-wrapper">
-        {cars.map((car) => (
-          <Link
-            key={car.id}
-            to={`/car/${car.id}`}
-            style={{ textDecoration: "none", color: "inherit" }}
-          >
-            <div className="catalog-card card shadow p-3">
-              {car.images && car.images.length > 0 && (
-                <div className="card-img-wrapper">
-                  <img
-                    src={car.images[0]}
-                    alt={car.name}
-                    className="card-img main-img"
-                  />
+  <div className="catalog-grid">
+    {cars.map((car) => (
+      <Link
+        key={car.id}
+        to={`/car/${car.id}`}
+        className="car-card"
+      >
 
-                  {car.images[1] && (
-                    <img
-                      src={car.images[1]}
-                      alt="hover"
-                      className="card-img hover-img"
-                    />
-                  )}
-                </div>
-              )}
+        <div className="car-img-wrapper">
 
-              <h5>
-                {car.name} {car.model}
-              </h5>
-              <p className="text-muted">{car.price} so'm/kuniga</p>
-              {car.rented && <div className="rented-badge">RENTED</div>}
+          <img
+            src={car.images?.[0]}
+            alt={car.name}
+          />
 
-              {(auth.currentUser?.uid === car.ownerId ||
+          {car.rented && (
+            <div className="rented-tag">
+              RENTED
+            </div>
+          )}
+
+        </div>
+
+        <div className="car-info">
+
+          <h3>
+            {car.name} {car.model}
+          </h3>
+
+          <p className="price">
+            {car.price} so'm / day
+          </p>
+
+          {(auth.currentUser?.uid === car.ownerId ||
                 auth.currentUser?.email ===
                   "muhammadsharifjonov11@gmail.com") && (
                 <div className="d-flex gap-2 mt-2">
@@ -178,10 +176,14 @@ const Home = () => {
                   </button>
                 </div>
               )}
-            </div>
-          </Link>
-        ))}
-      </div>
+
+        </div>
+
+      </Link>
+    ))}
+  </div>
+
+</div>
     </div>
   );
 };
